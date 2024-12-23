@@ -1,53 +1,36 @@
-# This is a basic workflow to help you get started with Actions
 name: CI
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-# 权限设置
 permissions:
-  # 允许读取仓库内容的权限。
   contents: read
-  # 允许写入 GitHub Pages 的权限。
   pages: write
-  # 允许写入 id-token 的权限。
   id-token: write
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-        name: Setup Node.js
-      - uses: actions/setup-node@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '18.17.0' # 指定Node版本
-      # 使用 最新的 PNPM
-      # 你也可以指定为具体的版本
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
+          node-version: '18.17.0'
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: latest
-          # version: 9
           run_install: false
-
-      # - name: Cache dependencies
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node-
+      - name: Set UTF-8 Locale
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y locales
+          sudo locale-gen zh_CN.UTF-8
+          export LANG=zh_CN.UTF-8
+          export LANGUAGE=zh_CN:zh
+          export LC_ALL=zh_CN.UTF-8
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
@@ -56,14 +39,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
       - name: Install dependencies
-        run: pnpm install # 确保使用锁定的依赖版本
-      - name: List files in docs directory
-        run: ls -R docs
+        run: pnpm install
+      - name: List all files
+        run: find docs -type f
       - name: Build VitePress site
         run: pnpm run build
-  
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/.vitepress/dist # 替换为实际输出目录
+          publish_dir: ./docs/.vitepress/dist
