@@ -11,7 +11,7 @@ export const sidebar: DefaultTheme.Config['sidebar'] = [
       },
       {
         text: '更新日志',
-        link: '/document/概述/更新记录'
+        link: '/document/概述/update-log'
       },
       {
         text: '准备工作',
@@ -21,7 +21,7 @@ export const sidebar: DefaultTheme.Config['sidebar'] = [
   },
   {
     text: '快速上手',
-    link: '/document/概述/快速开始'
+    link: '/document/概述/start'
   },
   // 接口
   {
