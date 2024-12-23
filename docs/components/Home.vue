@@ -25,8 +25,8 @@ const homePages: any = [
     link: 'document/概述/update-log.html',
     details: '版本update-log'
   }, {
-    title: '状态码',
-    link: 'document/其它/状态码.html',
+    title: 'state-code',
+    link: 'document/其它/state-code.html',
     details: '返回值说明'
   }
 ]

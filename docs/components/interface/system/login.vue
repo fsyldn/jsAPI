@@ -8,18 +8,18 @@ const userAccount = ref('')
 const loading = ref(false)
 const login = async () => {
   setLog({
-    name: '开始登录'
+    name: '开始login'
   })
   if (loading.vue) {
     setLog({
-      name: '登录结果',
+      name: 'login结果',
       msg: '请先实例化'
     })
     return
   }
   if (!await checkInstance()) {
     setLog({
-      name: '登录',
+      name: 'login',
       msg: '请先实例化'
     })
     ElMessage({
@@ -30,7 +30,7 @@ const login = async () => {
   }
   if (!userAccount.value && !token.value) {
     setLog({
-      name: '登录',
+      name: 'login',
       msg: `参数错误,请输入对接信息`
     })
     ElMessage({
@@ -45,13 +45,13 @@ const login = async () => {
     userAccount: userAccount.value
   })
   setLog({
-    name: '登录结果',
+    name: 'login结果',
     msg: result
   })
   loading.vue = false
   if (result.status == 200) {
     ElMessage({
-      message: '登录成功',
+      message: 'login成功',
       type: 'success'
     })
   } else {
@@ -75,7 +75,7 @@ const login = async () => {
     <el-input v-model="userAccount" placeholder="请输入测试账号"></el-input>
   </el-form-item>
   <el-form-item>
-    <el-button type="primary" @click="login" v-loading="loading">登录</el-button>
+    <el-button type="primary" @click="login" v-loading="loading">login</el-button>
   </el-form-item>
 </el-form>
 </template>

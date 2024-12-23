@@ -3,45 +3,45 @@ import type { DefaultTheme } from 'vitepress'
 
 export const sidebar: DefaultTheme.Config['sidebar'] = [
   {
-    text: '概述',
+    text: 'overview',
     items: [
       {
-        text: '前言',
-        link: '/document/概述/前言'
+        text: 'front',
+        link: '/document/overview/front'
       },
       {
-        text: '更新日志',
-        link: '/document/概述/update-log'
+        text: 'update-log',
+        link: '/document/overview/update-log'
       },
       {
         text: '准备工作',
-        link: '/document/概述/准备'
+        link: '/document/overview/ready'
       }
     ]
   },
   {
     text: '快速上手',
-    link: '/document/概述/start'
+    link: '/document/overview/start'
   },
-  // 接口
+  // interface
   {
-    text: '接口',
+    text: 'interface',
     items: [{
-      text: '系统接口',
+      text: 'system interface',
       items: [{
         text: '实例化',
-        link: '/document/接口/系统/实例化'
+        link: '/document/interface/system/instance'
       },{
         text: '设置服务器',
-        link: '/document/接口/系统/上下文'
+        link: '/document/interface/system/context'
       },{
-        text: '登录',
-        link: '/document/接口/系统/登录'
+        text: 'login',
+        link: '/document/interface/system/login'
       }]
     }]
   },
   {
-    text: '状态码',
-    link: '/document/其它/状态码'
+    text: 'state-code',
+    link: '/document/other/state-code'
   }
 ]

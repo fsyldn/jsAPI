@@ -40,8 +40,8 @@ const fcc = new FCC({
    })
    ```
 
- **登录中台服务**
-   连接中台服务成功后，调用登录接口。  
+ **login中台服务**
+   连接中台服务成功后，调用login接口。  
 
    ```javascript
    let loginResult = await fcc.login({
@@ -50,7 +50,7 @@ const fcc = new FCC({
    ```
 
  **调用中台业务接口**
-   登录中台成功后，fcc 对象将获得点对点通话、视频会议、电话接报、外呼电话、实时浏览监控、IM即时聊天等功能，上层应用可以调用 fcc 的接口方法使用这些功能。如发起语音点呼：  
+   login中台成功后，fcc 对象将获得点对点通话、视频会议、电话接报、外呼电话、实时浏览监控、IM即时聊天等功能，上层应用可以调用 fcc 的接口方法使用这些功能。如发起语音点呼：  
 
    ```javascript
    let result = await fcc.dialVoice({
