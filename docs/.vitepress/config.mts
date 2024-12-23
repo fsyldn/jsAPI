@@ -9,7 +9,7 @@ export default defineConfig({
   title: "融合通信中台JS-API",
   description: "desription",
   lang: 'zh-CN', //语言，可选 en-US
-  base: '/',
+  base: '/xw-js-api-doc/',
   head: [
     // 加载本地 JavaScript 文件
     ['script', { src: '/libs/FCC-SDK.min.js' }],
