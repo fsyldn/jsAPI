@@ -84,7 +84,7 @@ export default defineConfig({
     sidebar:  [
       {
         text: '文档',
-        link: '/doc/a.md' // 确保路径正确且使用正斜杠
+        link: '/document/a.md' // 确保路径正确且使用正斜杠
       },
       // ...其他侧边栏项...
     ],
