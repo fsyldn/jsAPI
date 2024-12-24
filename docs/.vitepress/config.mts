@@ -79,7 +79,12 @@ export default defineConfig({
     // siteTitle: false, //标题隐藏
     // https://vitepress.dev/reference/default-theme-config
     nav,
-    sidebar,
+    sidebar: [
+      {
+        text: '文档',
+        link: BASE + 'document/a.md'
+      }
+    ],
 
     //社交链接
     // socialLinks: [ 
