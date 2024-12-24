@@ -7,7 +7,7 @@ export const sidebar: DefaultTheme.Config['sidebar'] = [
     items: [
       {
         text: 'front',
-        link: '/document/overview/front'
+        link: '/docs/document/overview/front'
       }
     ]
   }
