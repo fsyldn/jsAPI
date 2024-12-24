@@ -78,8 +78,16 @@ export default defineConfig({
     }, 
     // siteTitle: false, //标题隐藏
     // https://vitepress.dev/reference/default-theme-config
-    nav,
-    sidebar,
+    nav: [
+      { text: '首页', link: '/' }
+    ],
+    sidebar:  [
+      {
+        text: '文档',
+        link: '/doc/a.md' // 确保路径正确且使用正斜杠
+      },
+      // ...其他侧边栏项...
+    ],
 
     //社交链接
     // socialLinks: [ 
