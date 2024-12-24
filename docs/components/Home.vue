@@ -18,16 +18,8 @@ const actions = [
 const homePages: any = [
   {
     title: 'start',
-    link: 'document/概述/start.html',
+    link: '/',
     details: '融合通信中台JS-API，start'
-  }, {
-    title: 'update-log',
-    link: 'document/概述/update-log.html',
-    details: '版本update-log'
-  }, {
-    title: 'state-code',
-    link: 'document/其它/state-code.html',
-    details: '返回值说明'
   }
 ]
 
