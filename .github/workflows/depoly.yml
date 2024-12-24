@@ -1,51 +1,79 @@
+# .github/workflows/ci.yml
+
 name: CI
+
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18.17.0'
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: latest
-          run_install: false
-      - name: Set UTF-8 Locale
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y locales
-          sudo locale-gen zh_CN.UTF-8
-          export LANG=zh_CN.UTF-8
-          export LANGUAGE=zh_CN:zh
-          export LC_ALL=zh_CN.UTF-8
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-      - name: Install dependencies
-        run: pnpm install
-      - name: List all files
-        run: find docs -type f
-      - name: Build VitePress site
-        run: pnpm run build
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/.vitepress/dist
+    # 1. 检出代码
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. 设置 Node.js 环境
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18.17.0'
+
+    # 3. 安装 pnpm
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+        run_install: false
+
+    # 4. 缓存依赖
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.pnpm-store
+        key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-
+
+    # 5. 安装依赖
+    - name: Install dependencies
+      run: pnpm install
+
+    # 6. 检查文件路径是否正确（调试用）
+    - name: Check file existence and content
+      run: |
+        echo "Checking if file exists..."
+        if [ -f "docs/document/overview/update-log.md" ]; then
+          echo "File exists. Printing content:"
+          cat docs/document/overview/update-log.md
+        else
+          echo "File not found!"
+          exit 1
+        fi
+
+    # 7. 修复路径分隔符（防止 Windows 风格的反斜杠问题）
+    - name: Normalize file paths
+      run: |
+        echo "Normalizing file paths..."
+        find docs -name "*.md" -exec bash -c 'mv "$0" "${0//\\//}"' {} \;
+
+    # 8. 构建 VitePress 站点
+    - name: Build VitePress site
+      run: pnpm run build
+
+    # 9. 部署到 GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/.vitepress/dist
